@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IntentLab | Chatbot A/B Testing</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-icon">✦</div><div><strong>IntentLab</strong><span>MODEL EVALUATION</span></div></div>
+      <div class="nav-label">WORKSPACE</div>
+      <a class="nav-item active" href="#overview"><span>▦</span> Overview</a>
+      <a class="nav-item" href="#playground"><span>◉</span> Chatbot Playground</a>
+      <a class="nav-item" href="#comparison"><span>⇄</span> Model Comparison</a>
+      <div class="sidebar-bottom"><div class="status-dot"></div><div><strong>Local workspace</strong><small>Ready to test</small></div></div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar"><div><div class="eyebrow">MACHINE LEARNING / EXPERIMENTS</div><h1>A/B Testing Dashboard</h1><p>Compare chatbot intent models and explore their predictions.</p></div><div class="top-pill"><span class="pulse"></span> EXPERIMENT ACTIVE</div></header>
+
+      <section id="overview" class="stats-grid">
+        <article class="stat-card"><div class="stat-head"><span>MODEL A</span><span class="mini-icon purple">A</span></div><h2>Naive Bayes</h2><div class="stat-number" id="accuracy-a">—<small> accuracy</small></div><div class="stat-foot">MultinomialNB classifier</div></article>
+        <article class="stat-card"><div class="stat-head"><span>MODEL B</span><span class="mini-icon blue">B</span></div><h2>Logistic Regression</h2><div class="stat-number" id="accuracy-b">—<small> accuracy</small></div><div class="stat-foot">LogisticRegression classifier</div></article>
+        <article class="stat-card"><div class="stat-head"><span>INTENT CLASSES</span><span class="mini-icon green">⌘</span></div><div class="stat-number">05</div><div class="stat-foot">Available prediction categories</div></article>
+        <article class="stat-card"><div class="stat-head"><span>FEATURE EXTRACTION</span><span class="mini-icon orange">T</span></div><div class="stat-number text-number">TF-IDF</div><div class="stat-foot">Text → numerical features</div></article>
+      </section>
+
+      <section class="content-grid">
+        <article id="playground" class="panel playground-panel">
+          <div class="panel-heading"><div><div class="eyebrow">TRY IT YOURSELF</div><h2>Chatbot Playground</h2><p>Enter a customer message and compare both predictions.</p></div><div class="chat-symbol">✧</div></div>
+          <label for="question">CUSTOMER MESSAGE</label>
+          <textarea id="question" rows="3" placeholder="e.g. Where is my order?"></textarea>
+          <div class="example-row"><span>Try an example:</span><button class="example-chip" data-example="Where is my order?">Order status</button><button class="example-chip" data-example="I need a refund">Refund</button><button class="example-chip" data-example="I forgot my password">Password</button></div>
+          <div class="form-row"><div class="select-wrap"><label for="selected-model">RESPONSE MODE</label><select id="selected-model"><option value="Show Both">Show both models</option><option value="Model A">Model A · Naive Bayes</option><option value="Model B">Model B · Logistic Regression</option></select></div><button id="run-btn" class="primary-btn"><span>Compare models</span><b>→</b></button></div>
+          <div id="error" class="error-message" hidden></div>
+          <div id="result-area" class="result-area" hidden>
+            <div class="result-title"><div><div class="eyebrow">PREDICTION RESULTS</div><h3>Intent analysis</h3></div><span id="agreement" class="agreement-badge">Models agree</span></div>
+            <div class="prediction-grid"><div class="prediction-card model-a"><div class="prediction-label"><span class="mini-icon purple">A</span> MODEL A</div><strong id="intent-a">—</strong><small id="latency-a">Response time: —</small><p id="response-a"></p></div><div class="prediction-card model-b"><div class="prediction-label"><span class="mini-icon blue">B</span> MODEL B</div><strong id="intent-b">—</strong><small id="latency-b">Response time: —</small><p id="response-b"></p></div></div>
+            <div class="recommendation"><div class="recommend-icon">✦</div><div><small>BASED ON TEST-SET ACCURACY</small><strong id="recommendation">—</strong><p id="recommendation-note">This is an overall evaluation, not a guarantee for this individual question.</p></div></div>
+          </div>
+        </article>
+
+        <article class="panel intents-panel"><div class="panel-heading"><div><div class="eyebrow">CLASSIFICATION</div><h2>Supported intents</h2><p>The five categories used by the current model.</p></div></div>
+          <div class="intent-list"><div class="intent-item"><span class="intent-icon violet">↗</span><div><strong>Order Status</strong><small>Track deliveries and shipments</small></div><code>order_status</code></div><div class="intent-item"><span class="intent-icon blue-bg">₹</span><div><strong>Refund</strong><small>Payment returns and refunds</small></div><code>refund</code></div><div class="intent-item"><span class="intent-icon orange-bg">↩</span><div><strong>Return</strong><small>Return or exchange a product</small></div><code>return</code></div><div class="intent-item"><span class="intent-icon green-bg">⌑</span><div><strong>Password Reset</strong><small>Login and account access</small></div><code>password_reset</code></div><div class="intent-item"><span class="intent-icon pink-bg">◇</span><div><strong>Product Info</strong><small>Features, availability and price</small></div><code>product_info</code></div></div>
+        </article>
+      </section>
+
+      <section id="comparison" class="panel comparison-panel"><div class="panel-heading"><div><div class="eyebrow">MODEL BENCHMARK</div><h2>Performance comparison</h2><p>Metrics are loaded from your trained model evaluation results.</p></div><span class="metric-tag">TEST SET</span></div><div class="table-wrap"><table><thead><tr><th>MODEL</th><th>ACCURACY</th><th>PRECISION</th><th>RECALL</th><th>F1 SCORE</th></tr></thead><tbody><tr><td><span class="table-model"><span class="mini-icon purple">A</span> Naive Bayes</span><td id="table-a-acc">—</td><td id="table-a-pre">—</td><td id="table-a-rec">—</td><td id="table-a-f1">—</td></tr><tr><td><span class="table-model"><span class="mini-icon blue">B</span> Logistic Regression</span><td id="table-b-acc">—</td><td id="table-b-pre">—</td><td id="table-b-rec">—</td><td id="table-b-f1">—</td></tr></tbody></table></div><div class="note"><span>ⓘ</span> Your current dataset contains only 25 example questions. Treat these scores as preliminary and test with more data before drawing strong conclusions.</div></section>
+      <footer>IntentLab · A/B Testing Framework for Chatbot Intent Models <span>Built with HTML, CSS, JavaScript &amp; Flask</span></footer>
+    </main>
+  </div>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

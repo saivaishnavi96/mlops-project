@@ -1,0 +1,4 @@
+timestamp,question,selected_model,model_a_intent,model_b_intent,model_a_latency_ms,model_b_latency_ms,recommended_model
+2026-10-30T19:03:55.360825,Where is my order?,Show Both,order_status,order_status,6.494999979622662,2.960600017104298,Accuracy tied or metrics unavailable
+2026-10-30T19:07:55.240650,Where is my order?,Show Both,order_status,order_status,1.8779999809339643,0.9540000464767218,Model B · Logistic Regression
+2026-10-30T19:14:02.447712,Where is my order?,Show Both,order_status,order_status,1.4356000465340912,1.045399985741824,Model B · Logistic Regression
